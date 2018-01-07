@@ -8,6 +8,19 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title: 'Department',
+    icon: 'ion-ios-briefcase-outline',
+    //link: '/pages/departments',
+    //home: true,
+    children: [{
+        title: 'Department List',
+        link: '/pages/departments/list'
+      }, {
+        title: 'New Department',
+        link: '/pages/departments/new'
+      }]
+  },
+  {
     title: 'FEATURES',
     group: true,
   },
