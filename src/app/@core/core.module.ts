@@ -5,6 +5,8 @@ import { NbAuthModule, NbDummyAuthProvider } from '@nebular/auth';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
+import { HttpModule } from '@angular/http';
+import { customHttpProvider } from './utils/index';
 
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
@@ -27,11 +29,15 @@ const NB_CORE_PROVIDERS = [
 @NgModule({
   imports: [
     CommonModule,
+    HttpModule
   ],
   exports: [
     NbAuthModule,
   ],
   declarations: [],
+  providers:[
+    customHttpProvider
+  ]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

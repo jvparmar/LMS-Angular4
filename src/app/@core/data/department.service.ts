@@ -1,13 +1,112 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable'
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+
+import { IDepartmentList, Department } from '../data-model/IDepartment';
+import { CustomHttp } from '../utils/index';
+//import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 @Injectable()
 export class DepartmentService {
-  private _departmentServiceUrl = 'http://localhost:49510/Department/';
+  //private _departmentServiceUrl = 'http://localhost:49510/Department/';
+  private _departmentServiceUrl = '/Department/';  
+  public options;
 
-  constructor(private http: Http){ }
+  constructor(private _http: Http, private http: CustomHttp) { 
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    this.options = new RequestOptions({ headers: headers });     
+  }
 
-  
+  getDepartmentList() {
+    let url: string = this._departmentServiceUrl + 'GetDepartmentList';    
+    console.log(url);
+    return this.http.get(url).toPromise();
+  }
+
+  getObsDepartmentList() : Observable<IDepartmentList[]> {
+    let url: string = this._departmentServiceUrl + 'GetDepartmentList';    
+    console.log(url);
+    return this.http.get(url)
+                .map((response: Response) => <IDepartmentList[]>response.json())                
+                .catch(this.handleError);
+  }
+
+  getDepartment(departmentId: number) {
+    let url: string = this._departmentServiceUrl + 'GetDepartment?departmentId=' + departmentId;
+    
+    return this.http.get(url)
+                .map(res => res.json() as Department)                
+                .catch(this.handleError);
+ }
+
+ createDepartment(department: Department) : Observable<any> {
+   let url : string = this._departmentServiceUrl + 'Create';
+
+   return this.http.post(url, department, this.options)
+                     .map(this.extractData)
+                     .catch(this.handleError);
+ }
+
+ updateDepartment(department: Department) : Observable<any> {
+   let url : string = this._departmentServiceUrl + 'Update';
+     
+   return this.http.post(url, department, this.options)
+                     .map(this.extractData)
+                     .catch(this.handleError);
+ }
+
+ deleteDepartment(department: Department) {
+   let url : string = this._departmentServiceUrl + "Delete";
+   
+   return this.http.post(url, department, this.options)
+                     .map(this.extractData)
+                     .catch(this.handleError);
+ }
+
+ private extractData(res: Response) {
+    var headers = res.headers;
+    console.log('Header: ' + res.headers.get("cache-control"));
+    console.log('Location: ' + res.headers.get("expires"));  
+    console.log('Location: ' + res.headers.get('x-roles'));  
+    
+    let body = res.json();    
+    console.log(body);
+
+    let head = res.headers.toJSON();
+    console.log(head);
+
+    
+
+    //var setCookieHeader = headers.get('Set-Cookie');
+      
+    
+    localStorage.setItem('setCookie', res.headers.get("x-roles"));
+    
+    return body;
+    //console.log('Extract data :' + body || {});
+    //return body.data || {};    
+  }
+
+  handleError(error: Response) {      
+    //console.error(error.toString());
+    return Observable.throw(error);
+  }
+
+  result;
+  getData() {
+    this.getDepartmentList()
+        .then(data => { console.log(data.json()); this.result = data.json(); })
+        .catch(e => { console.log(e)   });
+    console.log('After Promise call...' + this.result);
+
+    return this.data;
+    //return this.result;
+  }  
 
   data = [{
     id: 1,
@@ -429,21 +528,5 @@ export class DepartmentService {
     'username': '@Sanchez',
     'email': 'lousanchez@comtours.com',
     'age': 16,
-  }];
-
-  getDepartmentList() {
-    let url: string = this._departmentServiceUrl + 'GetDepartmentList';    
-
-    return this.http.get(url).toPromise();
-  }
-  result;
-  getData() {
-    this.getDepartmentList()
-        .then(data => { console.log(data.json()); this.result = data.json(); })
-        .catch(e => { console.log(e)   });
-    console.log('After Promise call...' + this.result);
-
-    return this.data;
-    //return this.result;
-  }
+  }];  
 }

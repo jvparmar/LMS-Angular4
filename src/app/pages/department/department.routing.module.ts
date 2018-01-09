@@ -5,9 +5,6 @@ import { DepartmentComponent } from './department.component';
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { DepartmentFormComponent } from './department-form/department-form.component';
 
-//import { TablesComponent } from './tables.component';
-//import { SmartTableComponent } from './smart-table/smart-table.component';
-
 const routes: Routes = [{
   path: '',
   component: DepartmentComponent,
@@ -15,10 +12,12 @@ const routes: Routes = [{
     path: 'new',
     component: DepartmentFormComponent
     }, {
-    path: 'list',
-    //component: SmartTableComponent,
+    path: 'list',    
     component: DepartmentListComponent
-  }],  
+    }, {
+      path: 'edit/:id',
+      component: DepartmentFormComponent
+    }],  
 }];
 
 @NgModule({
@@ -27,9 +26,7 @@ const routes: Routes = [{
 })
 export class DepartmentRoutingModule { }
 
-export const routedComponents = [
-  //TablesComponent,
-  //SmartTableComponent,
+export const routedComponents = [  
   DepartmentComponent,
   DepartmentListComponent,
   DepartmentFormComponent

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DepartmentService } from '../../../@core/data/department.service';
+import { Router } from '@angular/router';
 //import { SmartTableService } from '../../../@core/data/smart-table.service';
 
 @Component({
@@ -15,6 +16,10 @@ import { DepartmentService } from '../../../@core/data/department.service';
 export class DepartmentListComponent {
 
   settings = {
+    actions:{
+      add:false,
+      edit:false,
+    },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
@@ -26,7 +31,8 @@ export class DepartmentListComponent {
       cancelButtonContent: '<i class="nb-close"></i>',
     },
     delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
+      //deleteButtonContent: '<i class="nb-trash"></i>',
+      deleteButtonContent: '<i class="nb-edit"></i>',
       confirmDelete: true,
     },
     columns: {
@@ -49,59 +55,37 @@ export class DepartmentListComponent {
       },
       EmployeeCount: {
         title: 'No of Employee',
-        type: 'number',
-      },
-    // columns: {
-    //   id: {
-    //     title: 'ID',
-    //     type: 'number',
-    //   },
-    //   firstName: {
-    //     title: 'First Name',
-    //     type: 'string',
-    //   },
-    //   lastName: {
-    //     title: 'Last Name',
-    //     type: 'string',
-    //   },
-    //   username: {
-    //     title: 'Username',
-    //     type: 'string',
-    //   },
-    //   email: {
-    //     title: 'E-mail',
-    //     type: 'string',
-    //   },
-    //   age: {
-    //     title: 'Age',
-    //     type: 'number',
-    //   },
+        type: 'number',        
+      },    
     },
   };
 
   source: LocalDataSource = new LocalDataSource();
   data;
-  constructor(private service: DepartmentService ) {
+  constructor(private service: DepartmentService,
+              private router: Router              
+            ) {
     //console.log('Department List constructor' + this.source.count());
     //const data = this.service.getData();
     
     this.service.getDepartmentList()
                 .then(result => { this.data = result.json(); 
-                                  console.log(result.json());
+                                  //console.log(result.json());
                                   this.source.load(result.json()); 
                                 })
                 .catch(e => console.log(e));
 
-    console.log('Result ' + this.data);
     //this.source.load(this.service.getData());
     //this.source.load(this.data);
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+    // if (window.confirm('Are you sure you want to delete?')) {
+    //   event.confirm.resolve();
+    //   console.log(event.data.DepartmentId);
+       this.router.navigate(['/pages/departments/edit/' + event.data.DepartmentId]);
+    // } else {
+    //   event.confirm.reject();
+    // }
   }
 }
