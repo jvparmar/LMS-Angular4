@@ -12,9 +12,16 @@ const routes: Routes = [{
     path: 'dashboard',
     component: DashboardComponent,
   }, {
+    path: 'employees',
+    //component: DepartmentListComponent,
+    loadChildren: './employees/employee.module#EmployeesModule',  
+  }, {
     path: 'departments',
     //component: DepartmentListComponent,
     loadChildren: './department/department.module#DepartmentModule',
+  }, {
+    path: 'leaves',    
+    loadChildren: './leaves/leaves.module#LeavesModule',
   }, {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',

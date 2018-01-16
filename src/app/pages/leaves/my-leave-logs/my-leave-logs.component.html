@@ -1,0 +1,12 @@
+<!-- <p>
+  my-leave-logs works! 
+</p>
+<div>Passed Employee Leave Id is {{inputEmployeeLeaveId}}</div> -->
+<h3>Leave Application Logs</h3>
+<table>
+  <tbody>
+      <tr *ngFor="let item of logData" >
+        <td>Leave "{{item.LeaveStatusDescription}}" on {{item.LeaveStatusOn | date: 'dd-MMM-yyyy'}} by {{item.LeaveStatusUpdatedBy}}</td>
+      </tr>
+  </tbody>
+</table>

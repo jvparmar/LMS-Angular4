@@ -1,0 +1,92 @@
+<nb-card size="large">
+    <nb-tabset fullWidth>      
+          <nb-tab tabTitle="All">
+            <br>  
+            <table class="table table-striped">
+                <thead>                
+                    <tr>
+                        <th style="text-align:left">Employees</th>
+                        <th style="text-align:center">Department</th>
+                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeeLeaveData">
+                        <td style="text-align:left">{{employee.EmployeeName}}</td>
+                        <td style="text-align:center">{{employee.Department}}</td>
+                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
+                    </tr>
+                </tbody>
+            </table>                
+          </nb-tab>
+          <nb-tab tabTitle="IT">
+            <br>
+            <table class="table table-striped">
+                <thead>                
+                    <tr>
+                        <th style="text-align:left">Employees</th>                            
+                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeeITLeaveData">
+                        <td style="text-align:left">{{employee.EmployeeName}}</td>                            
+                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
+                    </tr>
+                </tbody>
+            </table>
+          </nb-tab>
+          <nb-tab tabTitle="DS">
+            <br>
+            <table class="table table-striped">
+                <thead>                
+                    <tr>
+                        <th style="text-align:left">Employees</th>                            
+                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeeDSLeaveData">
+                        <td style="text-align:left">{{employee.EmployeeName}}</td>                            
+                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
+                    </tr>
+                </tbody>
+            </table>
+          </nb-tab>
+          <nb-tab tabTitle="DG">
+            <br>
+            <table class="table table-striped">
+                <thead>                
+                    <tr>
+                        <th style="text-align:left">Employees</th>                            
+                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeeDGLeaveData">
+                        <td style="text-align:left">{{employee.EmployeeName}}</td>                            
+                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
+                    </tr>
+                </tbody>
+            </table>
+          </nb-tab>
+          <nb-tab tabTitle="HR">
+            <br>
+            <table class="table table-striped">
+                <thead>                
+                    <tr>
+                        <th style="text-align:left">Employees</th>                            
+                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeeHRLeaveData">
+                        <td style="text-align:left">{{employee.EmployeeName}}</td>                            
+                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
+                    </tr>
+                </tbody>
+            </table>
+          </nb-tab>
+    </nb-tabset>
+</nb-card>      
+    

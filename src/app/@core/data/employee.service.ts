@@ -707,7 +707,8 @@ export class EmployeeService {
 
 
 dataEmployeeLeaves = [{
-    'EmployeeName': 'Rohit',        
+    'EmployeeName': 'Rohit',
+    'Department':'DG',
     'WeekDates': [
         '2017-12-03',
         '2017-12-04',
@@ -733,6 +734,7 @@ dataEmployeeLeaves = [{
 },
 {
     'EmployeeName': 'Jigs',        
+    'Department':'IT',
     'WeekDates': [
         '2017-12-03',
         '2017-12-04',

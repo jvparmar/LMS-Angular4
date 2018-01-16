@@ -4,6 +4,9 @@ import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
+import { NotificationService } from '../@core/data/index';
+import { ToasterService } from 'angular2-toaster';
+import { EmployeeLeavesComponent } from './employees/employee-leaves/employee-leaves.component';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -17,7 +20,12 @@ const PAGES_COMPONENTS = [
   ],
   declarations: [
     ...PAGES_COMPONENTS,
+    //EmployeeLeavesComponent,
   ],
+  providers:[
+    NotificationService,
+    //ToasterService,
+  ]
 })
 export class PagesModule {
 }

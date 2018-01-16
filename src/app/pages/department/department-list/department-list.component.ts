@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DepartmentService } from '../../../@core/data/department.service';
 import { Router } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';  ///src/toaster.service
+import { ToasterModule, ToasterConfig} from 'angular2-toaster';
+import { Toast } from 'angular2-toaster';  ///src/toast
 //import { SmartTableService } from '../../../@core/data/smart-table.service';
 
 @Component({
@@ -14,11 +17,40 @@ import { Router } from '@angular/router';
   `],
 })
 export class DepartmentListComponent {
+  source: LocalDataSource = new LocalDataSource();
+  data;
+  public config1 : ToasterConfig = new ToasterConfig({
+    positionClass: 'toast-top-right'
+  });
+  private toasterService1: ToasterService;
+
+  constructor(private service: DepartmentService,
+              private router: Router,
+              private toasterService : ToasterService              
+            ) {
+              //this.toasterService = toasterService;
+
+              
+    //console.log('Department List constructor' + this.source.count());
+    //const data = this.service.getData();
+    
+    // this.service.getDepartmentList()
+    //             .then(result => { this.data = result.json(); 
+    //                               //console.log(result.json());
+    //                               this.source.load(result.json()); 
+    //                             })
+    //             .catch(e => console.log(e));
+
+    //this.source.load(this.service.getData());
+    //this.source.load(this.data);
+  }
 
   settings = {
     actions:{
       add:false,
-      edit:false,
+      edit: {
+        mode: 'inline',    //'inline'|'external',
+      },
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -60,24 +92,28 @@ export class DepartmentListComponent {
     },
   };
 
-  source: LocalDataSource = new LocalDataSource();
-  data;
-  constructor(private service: DepartmentService,
-              private router: Router              
-            ) {
-    //console.log('Department List constructor' + this.source.count());
-    //const data = this.service.getData();
-    
-    this.service.getDepartmentList()
+  
+
+  async ngOnInit(){
+    await this.service.getDepartmentList()
                 .then(result => { this.data = result.json(); 
                                   //console.log(result.json());
                                   this.source.load(result.json()); 
                                 })
                 .catch(e => console.log(e));
 
-    //this.source.load(this.service.getData());
-    //this.source.load(this.data);
+                var toast: Toast = {
+                  type: 'info',
+                  title: 'Here is a Toast Title',
+                  body: 'Here is a Toast Body'
+                };
+                
+                //this.toasterService.pop(toast);
   }
+
+
+  
+  
 
   onDeleteConfirm(event): void {
     // if (window.confirm('Are you sure you want to delete?')) {

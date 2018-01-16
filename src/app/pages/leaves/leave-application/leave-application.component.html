@@ -1,0 +1,97 @@
+<!-- <toaster-container [toasterconfig]="config"></toaster-container> -->
+
+<nb-card>      
+        <nb-card-header>{{isEditMode?'EDIT':'NEW'}} Leave Application</nb-card-header>
+        <toaster-container [toasterconfig]="config1"></toaster-container>
+        <nb-card-body>
+          <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">          
+                <div class="form-group row" *ngIf="isEditMode">
+                        <label for="inputRequestDate" class="col-sm-3 control-label">Request Date</label>
+                
+                        <div class="col-sm-9">
+                            <!--<input ng-readonly="" [formControl]="RequestDate" type="text" class="form-control" readonly id="inputRequestDate" placeholder="Request Date">
+                            <div ng-readonly="">{{employeeId}}</div> -->
+                            <div style="padding:0.75rem">{{valRequestDate}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group row" [ngClass]="{'has-error': (!LeaveFromDate.valid && LeaveFromDate.touched), 'has-success': (LeaveFromDate.valid && LeaveFromDate.touched)}">
+                        <label for="inputLeaveFromDate" class="col-sm-3 control-label">Leave From</label>
+                
+                        <div class="col-sm-9">
+                            <!-- *ngIf="!isReadOnlyLeaveFromDate" <input [formControl]="LeaveToDate" type="text" class="form-control" id="inputLeaveToDate" placeholder="Leave To Date"> -->
+                            <input class="form-control" placeholder="yyyy-mm-dd" (click)="dFromLeaveDate.toggle()" id="dpLeaveFromDate" name="dpLeaveFromDate" [formControl]="LeaveFromDate" ngbDatepicker #dFromLeaveDate="ngbDatepicker">                    
+                        </div>
+                        <!-- <div class="col-sm-9" *ngIf="isReadOnlyLeaveFromDate">
+                            <input [formControl]="LeaveFromDate" ng-readonly="" type="text" class="form-control" id="inputLeaveToDate" placeholder="Leave To Date Read only">                    
+                        </div> -->
+                    </div>
+                     <div class="form-group row" [ngClass]="{'has-error': (!LeaveToDate.valid && LeaveToDate.touched), 'has-success': (LeaveToDate.valid && LeaveToDate.touched)}">
+                        <label for="inputLeaveToDate" class="col-sm-3 control-label">Leave To</label>
+                
+                        <div class="col-sm-9">
+                            <!-- <input [formControl]="LeaveToDate" type="text" class="form-control" id="inputLeaveToDate" placeholder="Leave To Date"> -->
+                            <input class="form-control" placeholder="yyyy-mm-dd" (click)="dToLeaveDate.toggle()" name="dpLeaveToDate" [formControl]="LeaveToDate" ngbDatepicker #dToLeaveDate="ngbDatepicker">                    
+                        </div>
+                        <!-- <div class="col-sm-1">
+                            <div class="input-group-addon" (click)="d.toggle()" >
+                                <img src="../calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="form-group row" [ngClass]="{'has-error': (!LeaveTypeDescription.valid && LeaveTypeDescription.touched), 'has-success': (LeaveTypeDescription.valid && LeaveTypeDescription.touched)}">
+                        <label for="selectLeaveType" class="col-sm-3 control-label">Leave Type</label>
+                        <div class="col-sm-9 input-group">
+                            <select [formControl]="LeaveTypeDescription" class="form-control" id="selectLeaveType">
+                                <option></option>
+                                <option>Full Day</option>
+                                <option>Half Day - (AM)</option>
+                                <option>Half Day - (AM)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row" [ngClass]="{'has-error': (!NoOfDays.valid && NoOfDays.touched), 'has-success': (NoOfDays.valid && NoOfDays.touched)}">
+                        <label for="inputNoOfDays" class="col-sm-3 control-label">Number Of Day(s)</label>
+                
+                        <div class="col-sm-9">
+                            <input [formControl]="NoOfDays" type="text" class="form-control" id="inputNoOfDays" placeholder="Number of Day(s)">
+                        </div>
+                    </div>
+                    <div class="form-group row" *ngIf="isEditMode">
+                        <label for="inputLeaveStatusDescription" class="col-sm-3 control-label">Leave Status</label>
+                
+                        <div class="col-sm-9">
+                            <input [formControl]="LeaveStatusDescription" type="text" class="form-control" readonly id="inputLeaveStatusDescription" placeholder="Leave Status">                                        
+                        </div>
+                    </div>
+                    <div class="form-group row" [ngClass]="{'has-error': (!Description.valid && Description.touched), 'has-success': (Description.valid && Description.touched)}">
+                        <label for="inputDescription" class="col-sm-3 control-label">Description</label>
+                
+                        <div class="col-sm-9">                    
+                            <textarea [formControl]="Description" id="inputDescription" class="form-control" placeholder="Leave Description..."></textarea>
+                        </div>
+                    </div>                     
+                    <!-- <div class="form-group row">
+                        <div class="offset-sm-3 col-sm-6">
+                            <button [disabled]="!form.valid" type="submit" class="btn btn-success" *ngIf="isAllowToSave">Save</button>
+                            <button type="button" class="btn btn-default btn-auth" (click)="goBack()">Go Back</button>
+                            
+                        </div>
+                    </div> -->
+            
+            <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">            
+                <!-- <button [disabled]="!form.valid" type="submit" class="btn btn-success">Save</button> -->
+                <button [disabled]="!form.valid" type="submit" class="btn btn-success" *ngIf="isAllowToSave">Save</button>
+                <button type="submit" class="btn btn-primary" (click)="onWithdraw()" *ngIf="isAllowToWithdraw">Withdraw</button>
+                <button type="button" class="btn btn-default btn-auth" (click)="goBack()">Go Back</button>
+              </div>
+            </div>
+          </form>
+          <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9">
+                <br>
+                <app-my-leave-logs [inputEmployeeLeaveId]="pEmployeeLeaveId" *ngIf="isEditMode"></app-my-leave-logs>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>

@@ -19,12 +19,15 @@ import { SolarComponent } from './solar/solar.component';
 import { PlayerComponent } from './rooms/player/player.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
+import { EmployeeLeavesComponent } from '../employees/employee-leaves/employee-leaves.component';
+import { EmployeesModule } from '../employees/employee.module';
 
 
 @NgModule({
   imports: [
     ThemeModule,
     AngularEchartsModule,
+    EmployeesModule,
   ],
   declarations: [
     DashboardComponent,
@@ -44,6 +47,7 @@ import { TrafficChartComponent } from './traffic/traffic-chart.component';
     SolarComponent,
     TrafficComponent,
     TrafficChartComponent,
+    EmployeeLeavesComponent,
   ],
 })
 export class DashboardModule { }

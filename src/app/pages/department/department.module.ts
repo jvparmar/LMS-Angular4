@@ -6,6 +6,7 @@ import { DepartmentRoutingModule, routedComponents } from './department.routing.
 import { DepartmentService } from '../../@core/data/department.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {ToasterModule } from 'angular2-toaster';
 //import { ButtonViewComponent } from './department-list/department-list.component';
 // import { DepartmentListComponent } from './department-list/department-list.component';
 // import { DepartmentFormComponent } from './department-form/department-form.component';
@@ -20,6 +21,7 @@ import { HttpModule } from '@angular/http';
     ReactiveFormsModule,
     DepartmentRoutingModule,
     Ng2SmartTableModule,    
+    ToasterModule,
   ],
   declarations: [
     // DepartmentComponent,
@@ -31,5 +33,8 @@ import { HttpModule } from '@angular/http';
     //SmartTableService,    
     DepartmentService,
   ],
+  schemas:[
+    //CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class DepartmentModule { }

@@ -23,6 +23,12 @@ export class LeaveService {
                   .catch(this.handleError);
     }
 
+    async getEmployeeLeaveListAsync(employeeId: number) {
+      let url: string = this._leaveServiceUrl + "GetEmployeeLeaves?employeeId=" + employeeId;
+      console.log(url);
+      return await this.http.get(url).toPromise();
+    }
+
     getEmployeeLeaveDetails(employeeLeaveId: number) {
       let url: string = this._leaveServiceUrl + 'GetEmployeesLeaveDetail?employeeLeaveId=' + employeeLeaveId;
       //console.log(url);

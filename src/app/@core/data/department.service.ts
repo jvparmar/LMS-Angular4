@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 
 import { IDepartmentList, Department } from '../data-model/IDepartment';
 import { CustomHttp } from '../utils/index';
+//import { Promise } from 'q';
 //import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
@@ -22,10 +23,10 @@ export class DepartmentService {
     this.options = new RequestOptions({ headers: headers });     
   }
 
-  getDepartmentList() {
+  async getDepartmentList() {
     let url: string = this._departmentServiceUrl + 'GetDepartmentList';    
     console.log(url);
-    return this.http.get(url).toPromise();
+    return await this.http.get(url).toPromise();
   }
 
   getObsDepartmentList() : Observable<IDepartmentList[]> {
@@ -58,6 +59,14 @@ export class DepartmentService {
    return this.http.post(url, department, this.options)
                      .map(this.extractData)
                      .catch(this.handleError);
+ }
+
+ async updateDepartmentAsync(department: Department) : Promise<any> {
+  let url : string = this._departmentServiceUrl + 'Update';
+    
+  return await this.http.post(url, department, this.options).toPromise();
+                    // .map(this.extractData)
+                    // .catch(this.handleError);
  }
 
  deleteDepartment(department: Department) {

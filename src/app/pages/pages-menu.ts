@@ -8,6 +8,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title: 'Employee',
+    icon: 'nb-person',    
+    children: [{
+        title: 'Employee List',
+        link: '/pages/employees/list'
+      }, {
+        title: 'New Employee',
+        link: '/pages/employees/new'
+      }]
+  },
+  {
     title: 'Department',
     icon: 'ion-ios-briefcase-outline',
     //link: '/pages/departments',
@@ -19,6 +30,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'New Department',
         link: '/pages/departments/new'
       }]
+  },
+  {
+    title: 'Leaves',
+    icon: 'nb-paper-plane',
+    //link: '/pages/departments',
+    //home: true,
+    children: [{
+        title: 'My Leaves',
+        link: '/pages/leaves/myLeaves'
+      }
+      , {
+        title: 'Leave Application',
+        link: '/pages/leaves/leaveApplication'
+      }
+    ]
   },
   {
     title: 'FEATURES',
