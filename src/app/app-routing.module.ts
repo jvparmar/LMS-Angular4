@@ -6,41 +6,13 @@ import {
   NbLogoutComponent,
   NbRegisterComponent,
   NbRequestPasswordComponent,
-  NbResetPasswordComponent,
+  NbResetPasswordComponent,  
 } from '@nebular/auth';
+import { AuthGuard } from './pages/auth/auth.guard';
 
-const routes: Routes = [
-  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
-  {
-    path: 'auth',
-    component: NbAuthComponent,
-    children: [
-      {
-        path: '',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'login',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'register',
-        component: NbRegisterComponent,
-      },
-      {
-        path: 'logout',
-        component: NbLogoutComponent,
-      },
-      {
-        path: 'request-password',
-        component: NbRequestPasswordComponent,
-      },
-      {
-        path: 'reset-password',
-        component: NbResetPasswordComponent,
-      },
-    ],
-  },
+const routes: Routes = [  
+  { path: 'auth', loadChildren: 'app/pages/auth/auth.module#AuthModule' },      
+  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule', canActivate: [AuthGuard] },  //
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
 ];
@@ -49,9 +21,10 @@ const config: ExtraOptions = {
   useHash: true,
 };
 
-@NgModule({
+@NgModule({  
   imports: [RouterModule.forRoot(routes, config)],
   exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {
 }

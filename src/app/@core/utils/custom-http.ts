@@ -52,7 +52,8 @@ export class CustomHttp extends Http {
         //     // 401 unauthorized response so log user out of client
         //     window.location.href = '/login';
         // }
-        console.log('Custom Http Error: ' + error._body);
+        //console.log('Custom Http Error: ' + error._body);
+        console.log('Custom Http Error: ' + error.json());
          
         return Observable.throw(error);
     }

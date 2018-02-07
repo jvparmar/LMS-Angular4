@@ -2,7 +2,7 @@
 
 <nb-card>      
     <nb-card-header>{{formMode}} Department</nb-card-header>
-    <toaster-container [toasterconfig]="config1"></toaster-container>
+    <toaster-container></toaster-container>
     <nb-card-body>
       <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
           <div class="form-group row" [ngClass]="{'has-error': (!DepartmentCode.valid && DepartmentCode.touched), 'has-success': (DepartmentCode.valid && DepartmentCode.touched)}">

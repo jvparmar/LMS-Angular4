@@ -1,17 +1,17 @@
 <nb-card>
-        <nb-card-header>
-          <div style="float:left">
-            My Leaves
-          </div>
-          <div style="float:right">
-            <!-- <toaster-container [toasterconfig]="config1"></toaster-container> -->
-            <input type="button" routerLink="/pages/leaves/leaveApplication" value="Create" class="btn btn-info">  
-          </div>
-        </nb-card-header>
-      
-        <nb-card-body>
-          <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
-          </ng2-smart-table>
-        </nb-card-body>
-      </nb-card>
+  <nb-card-header>
+    <div style="float:left">
+      My Leaves
+    </div>
+    <div style="float:right">
+        <!-- <toaster-container [toasterconfig]="config1"></toaster-container> -->
+      <input type="button" routerLink="/pages/leaves/leaveApplication" value="New Leave Application" class="btn btn-info">  
+    </div>
+  </nb-card-header>
+  
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
       

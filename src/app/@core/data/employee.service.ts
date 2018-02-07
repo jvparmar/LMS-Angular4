@@ -1,7 +1,35 @@
 import {Injectable} from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable'
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+
+//import { IDepartmentList, Department } from '../data-model/IDepartment';
+import { CustomHttp, HttpService } from '../utils/index';
 
 @Injectable()
 export class EmployeeService {
+  private _employeeServiceUrl = '/Employee/';  
+  public options;
+
+  constructor(private http: HttpService) { 
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    this.options = new RequestOptions({ headers: headers });     
+  }
+
+  async getWeeklyEmployeeLeavesAsync(date) {
+    let url: string = this._employeeServiceUrl + 'GetWeeklyEmployeesLeaves?inputDate=' + date;
+    //console.log(url);
+    return await this.http.get(url).toPromise();
+  }
+
+  async getMonthlyEmployeeLeavesAsync(date) {
+    let url: string = this._employeeServiceUrl + 'GetMonthlyEmployeesLeaves?inputDate=' + date;
+    //console.log(url);
+    return await this.http.get(url).toPromise();
+  }
 
   dataTableData = [{
         'name': 'Wing',
@@ -707,7 +735,7 @@ export class EmployeeService {
 
 
 dataEmployeeLeaves = [{
-    'EmployeeName': 'Rohit',
+    'EmployeeName': 'Rohit Parmar',
     'Department':'DG',
     'WeekDates': [
         '2017-12-03',
@@ -715,7 +743,7 @@ dataEmployeeLeaves = [{
         '2017-12-05',
         '2017-12-06',
         '2017-12-07',
-        '2017-12-08'
+        //'2017-12-08'
         // 'DAY1': '2017-12-03',
         // 'DAY2': '2017-12-04',
         // 'DAY3': '2017-12-05',
@@ -729,7 +757,7 @@ dataEmployeeLeaves = [{
         '',
         '',
         'HD-AM',
-        ''
+        //''
     ]
 },
 {
@@ -741,7 +769,7 @@ dataEmployeeLeaves = [{
         '2017-12-05',
         '2017-12-06',
         '2017-12-07',
-        '2017-12-08'
+        //'2017-12-08'
                 // 'DAY1': '2017-12-03',
                 // 'DAY2': '2017-12-04',
                 // 'DAY3': '2017-12-05',
@@ -754,7 +782,7 @@ dataEmployeeLeaves = [{
                 'FD',
                 'FD',
                 '',
-                '',
+                //'',
                 'HD-PM'
             ]
 }];
@@ -775,6 +803,4 @@ dataEmployeeLeaves = [{
       }, 1000);
     });
   }
-
-  
 }

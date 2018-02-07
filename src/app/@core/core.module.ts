@@ -6,7 +6,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 import { HttpModule } from '@angular/http';
-import { customHttpProvider } from './utils/index';
+import { customHttpProvider, HttpService, customHttpServiceProvider } from './utils/index';
 
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
@@ -36,7 +36,8 @@ const NB_CORE_PROVIDERS = [
   ],
   declarations: [],
   providers:[
-    customHttpProvider
+    //customHttpProvider
+    customHttpServiceProvider,
   ]
 })
 export class CoreModule {

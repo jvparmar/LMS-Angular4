@@ -5,7 +5,7 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {ToasterModule } from 'angular2-toaster';
-import { EmployeeService } from '../../@core/data/index';
+import { EmployeeService, DashboardService } from '../../@core/data/index';
 import { DatePipe } from '@angular/common';
 import { EmployeesRoutingModule, routedComponents } from './employee.routing.module';
 
@@ -24,8 +24,9 @@ import { EmployeesRoutingModule, routedComponents } from './employee.routing.mod
     ...routedComponents,
   ],
   providers: [    
-    EmployeeService
-    //DatePipe
+    EmployeeService,
+    DashboardService,
+    DatePipe,
   ],
   schemas:[
     CUSTOM_ELEMENTS_SCHEMA,    

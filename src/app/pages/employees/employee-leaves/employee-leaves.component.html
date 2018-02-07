@@ -1,92 +1,187 @@
+<div class="row">    
+    <div class="col-xxxl-3 col-md-6">
+        <ngx-employee-leave-summary-card title="{{TOTAL_APPLIED}}" details="Applied" type="primary">
+        <i class="nb-lightbulb"></i>
+        </ngx-employee-leave-summary-card>
+    </div>
+    
+    <div class="col-xxxl-3 col-md-6">
+        <ngx-employee-leave-summary-card title="{{TOTAL_APPROVED}}" details="Approve" type="success">
+        <i class="nb-roller-shades"></i>
+        </ngx-employee-leave-summary-card>
+    </div>
+    
+    <div class="col-xxxl-3 col-md-6">
+        <ngx-employee-leave-summary-card title="{{TOTAL_UNAPPROVED}} \ {{TOTAL_WITHDRAW}}" details="Unapprove \ Withdraw" type="info">
+        <i class="nb-audio"></i>
+        </ngx-employee-leave-summary-card>
+    </div>
+    
+    <div class="col-xxxl-3 col-md-6">
+        <ngx-employee-leave-summary-card title="{{TOTAL_BALANCE}} \ {{TOTAL_SUBMITTED_LEAVE_APPLICATION}}" details="Total Balance \ Submitted" type="warning">
+        <i class="nb-coffee-maker"></i>
+        </ngx-employee-leave-summary-card>
+    </div>
+</div>
+
 <nb-card size="large">
-    <nb-tabset fullWidth>      
-          <nb-tab tabTitle="All">
-            <br>  
-            <table class="table table-striped">
-                <thead>                
-                    <tr>
-                        <th style="text-align:left">Employees</th>
-                        <th style="text-align:center">Department</th>
-                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let employee of employeeLeaveData">
-                        <td style="text-align:left">{{employee.EmployeeName}}</td>
-                        <td style="text-align:center">{{employee.Department}}</td>
-                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
-                    </tr>
-                </tbody>
-            </table>                
-          </nb-tab>
-          <nb-tab tabTitle="IT">
-            <br>
-            <table class="table table-striped">
-                <thead>                
-                    <tr>
-                        <th style="text-align:left">Employees</th>                            
-                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let employee of employeeITLeaveData">
-                        <td style="text-align:left">{{employee.EmployeeName}}</td>                            
-                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
-                    </tr>
-                </tbody>
-            </table>
-          </nb-tab>
-          <nb-tab tabTitle="DS">
-            <br>
-            <table class="table table-striped">
-                <thead>                
-                    <tr>
-                        <th style="text-align:left">Employees</th>                            
-                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let employee of employeeDSLeaveData">
-                        <td style="text-align:left">{{employee.EmployeeName}}</td>                            
-                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
-                    </tr>
-                </tbody>
-            </table>
-          </nb-tab>
-          <nb-tab tabTitle="DG">
-            <br>
-            <table class="table table-striped">
-                <thead>                
-                    <tr>
-                        <th style="text-align:left">Employees</th>                            
-                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let employee of employeeDGLeaveData">
-                        <td style="text-align:left">{{employee.EmployeeName}}</td>                            
-                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
-                    </tr>
-                </tbody>
-            </table>
-          </nb-tab>
-          <nb-tab tabTitle="HR">
-            <br>
-            <table class="table table-striped">
-                <thead>                
-                    <tr>
-                        <th style="text-align:left">Employees</th>                            
-                        <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let employee of employeeHRLeaveData">
-                        <td style="text-align:left">{{employee.EmployeeName}}</td>                            
-                        <td *ngFor="let leave of employee.Leaves" style="text-align:center">{{leave}}</td>
-                    </tr>
-                </tbody>
-            </table>
-          </nb-tab>
-    </nb-tabset>
+    <div class="chart-container">
+        <div class="chart-header">
+            <div class="header-stats">
+                <div class="stats-block">
+                    <div class="subtitle">Total</div>
+                    <div>
+                    <span class="value">{{valTotalEmployees}}</span>                    
+                    </div><span class="unit">Employees</span>
+                </div>
+        
+                <div class="stats-block">
+                    <div class="subtitle">This {{type}}</div>
+                    <div>
+                    <span class="value">{{valTotalOnLeave}}</span>                    
+                    </div><span class="unit">on leave</span>
+                </div>
+
+                <div class="stats-block">
+                    <div class="subtitle">Today</div>
+                    <div>
+                    <span class="value">{{valTotalOnLeaveToday}}</span>                    
+                    </div><span class="unit">on leave</span>
+                </div>
+            </div>
+            <div class="dropdown" ngbDropdown>
+                <button type="button" ngbDropdownToggle class="btn"
+                    [ngClass]="{ 'btn-outline-success': currentTheme == 'default', 'btn-primary': currentTheme != 'default'}">
+                    {{ type }}
+                </button>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li class="dropdown-item" *ngFor="let t of types" (click)="onPeriodSelection(t)">{{ t }}</li>
+                </ul>
+            </div>
+        </div>
+        <nb-tabset #tabDept fullWidth (changeTab)='onSelectChange($event)'>
+            <nb-tab tabTitle="All">
+                <br>  
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left">Employees</th>
+                            <th style="text-align:center">Department</th>
+                            <th *ngFor="let header of weekHeaderData" style="text-align:center;" 
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && header == today, 'btn-primary': currentTheme != 'default' && header == today }">{{header}}</th>
+                        </tr>               
+                        <!-- <tr>
+                            <td colspan="3">
+                                <span [innerHTML]="current"></span>
+                            </td>
+                        </tr> -->
+                        <!-- <tr>
+                            <th style="text-align:left">Employees</th>
+                            <th style="text-align:center">Department</th>
+                            <th *ngFor="let header of headerData" style="text-align:center">{{header}}</th>                       
+                        </tr> -->
+                    </thead>
+                    <!-- <tbody>
+                        <tr *ngFor="let employee of employeeLeaveData; let i = index">                        
+                            <td style="text-align:left">
+                                <nb-user [name]="employee.EmployeeName" [picture]="employee.EmployeeName.picture" size="large"></nb-user>
+                            </td>
+                            <td style="text-align:center; vertical-align:middle;">{{employee.Department}}</td>
+                            <td *ngFor="let leave of employee.Leaves" style="text-align:center; vertical-align:middle;">{{leave}}</td>
+                        </tr>                        
+                    </tbody> -->
+                    <tbody>
+                        <tr *ngFor="let employee of data">                        
+                            <td style="text-align:left">
+                                <nb-user [name]="employee.FirstName + ' ' + employee.LastName" size="large"></nb-user>
+                            </td>
+                            <td style="text-align:center; vertical-align:middle;">{{employee.DepartmentCode}}</td>
+                            <td *ngFor="let leave of employee.Leaves | employeeLeaves; let i = index;" style="text-align:center; vertical-align:middle;"
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && i == todayIndex, 'btn-primary': currentTheme != 'default' && i == todayIndex }">
+                                {{leave}}
+                            </td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </nb-tab>
+            <nb-tab tabTitle="IT">
+                <br>
+                <table class="table table-striped">
+                    <thead>                
+                        <tr>
+                            <th style="text-align:left">Employees</th>                            
+                            <th *ngFor="let header of weekHeaderData" style="text-align:center"
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && header == today, 'btn-primary': currentTheme != 'default' && header == today }">{{header}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let employee of employeeITLeaveData">
+                            <td style="text-align:left"><nb-user [name]="employee.FirstName + ' ' + employee.LastName" size="large"></nb-user></td>
+                            <td *ngFor="let leave of employee.Leaves | employeeLeaves; let i = index;" style="text-align:center; vertical-align:middle;"
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && i == todayIndex, 'btn-primary': currentTheme != 'default' && i == todayIndex }">{{leave}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </nb-tab>
+            <nb-tab tabTitle="DS">
+                <br>
+                <table class="table table-striped">
+                    <thead>                
+                        <tr>
+                            <th style="text-align:left">Employees</th>                            
+                            <th *ngFor="let header of weekHeaderData" style="text-align:center"
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && header == today, 'btn-primary': currentTheme != 'default' && header == today }">{{header}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let employee of employeeDSLeaveData">
+                            <td style="text-align:left"><nb-user [name]="employee.FirstName + ' ' + employee.LastName" size="large"></nb-user></td>                            
+                            <td *ngFor="let leave of employee.Leaves | employeeLeaves; let i = index;" style="text-align:center; vertical-align:middle;"
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && i == todayIndex, 'btn-primary': currentTheme != 'default' && i == todayIndex }">{{leave}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </nb-tab>
+            <nb-tab tabTitle="DG">
+                <br>
+                <table class="table table-striped">
+                    <thead>                
+                        <tr>
+                            <th style="text-align:left">Employees</th>                            
+                            <th *ngFor="let header of weekHeaderData" style="text-align:center"
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && header == today, 'btn-primary': currentTheme != 'default' && header == today }">{{header}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let employee of employeeDGLeaveData">
+                            <td style="text-align:left"><nb-user [name]="employee.FirstName + ' ' + employee.LastName" size="large"></nb-user></td>                            
+                            <td *ngFor="let leave of employee.Leaves | employeeLeaves; let i = index;" style="text-align:center; vertical-align:middle;"
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && i == todayIndex, 'btn-primary': currentTheme != 'default' && i == todayIndex }">{{leave}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </nb-tab>
+            <nb-tab tabTitle="HR">
+                <br>
+                <table class="table table-striped">
+                    <thead>                
+                        <tr>
+                            <th style="text-align:left">Employees</th>                            
+                            <th *ngFor="let header of weekHeaderData" style="text-align:center"
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && header == today, 'btn-primary': currentTheme != 'default' && header == today }">{{header}}</th>
+                            <!-- <th *ngFor="let header of weekData" style="text-align:center">{{header | date:'EEE, dd-MMM'}}</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let employee of employeeHRLeaveData">
+                            <td style="text-align:left"><nb-user [name]="employee.FirstName + ' ' + employee.LastName" size="large"></nb-user></td>                            
+                            <td *ngFor="let leave of employee.Leaves | employeeLeaves; let i = index;" style="text-align:center; vertical-align:middle;"
+                                [ngClass]="{ 'btn-success': currentTheme == 'default' && i == todayIndex, 'btn-primary': currentTheme != 'default' && i == todayIndex }">{{leave}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </nb-tab>
+          </nb-tabset>
+    </div>
 </nb-card>      
     

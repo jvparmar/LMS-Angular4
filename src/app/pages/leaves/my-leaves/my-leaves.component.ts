@@ -7,6 +7,8 @@ import { ToasterModule, ToasterService, ToasterConfig, Toast} from 'angular2-toa
 import { LeaveService } from '../../../@core/data/index';
 import { LeaveDetails, LeaveApplication } from '../../../@core/data-model/index';
 import { DatePipe } from '@angular/common';
+import { AuthenticationService } from '../../../@core/data/authentication.service';
+
 
 @Component({
   selector: 'ngx-myLeaves-list',
@@ -27,7 +29,8 @@ export class MyLeavesComponent {
   // sortBy = "code";
   // sortOrder = "asc";
   // navigationExtras;
-  employeeId = 1;
+  employeeId;
+  //employeeId = 1;
 
   source: LocalDataSource = new LocalDataSource();
   //data;
@@ -40,10 +43,12 @@ export class MyLeavesComponent {
 
   constructor(private router: Router, 
               private leaveService: LeaveService,
+              private authService: AuthenticationService,
               private datePipe: DatePipe
               //private toasterService : ToasterService
             ) { 
     this.date = new Date();
+    this.employeeId = this.authService.userId;
   }
   
   ngOnInit() {

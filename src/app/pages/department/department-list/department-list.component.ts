@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-import { DepartmentService } from '../../../@core/data/department.service';
-import { Router } from '@angular/router';
-import { ToasterService } from 'angular2-toaster';  ///src/toaster.service
-import { ToasterModule, ToasterConfig} from 'angular2-toaster';
-import { Toast } from 'angular2-toaster';  ///src/toast
-//import { SmartTableService } from '../../../@core/data/smart-table.service';
+
+import { Router, RouterStateSnapshot } from '@angular/router';
+import { DepartmentService, AlertService } from '../../../@core/data/index';
 
 @Component({
   selector: 'ngx-department-list',
@@ -19,38 +16,22 @@ import { Toast } from 'angular2-toaster';  ///src/toast
 export class DepartmentListComponent {
   source: LocalDataSource = new LocalDataSource();
   data;
-  public config1 : ToasterConfig = new ToasterConfig({
-    positionClass: 'toast-top-right'
-  });
-  private toasterService1: ToasterService;
+  
 
-  constructor(private service: DepartmentService,
-              private router: Router,
-              private toasterService : ToasterService              
+  constructor(private router: Router,
+              private service: DepartmentService,
+              private alterService: AlertService,                           
             ) {
-              //this.toasterService = toasterService;
-
               
-    //console.log('Department List constructor' + this.source.count());
-    //const data = this.service.getData();
-    
-    // this.service.getDepartmentList()
-    //             .then(result => { this.data = result.json(); 
-    //                               //console.log(result.json());
-    //                               this.source.load(result.json()); 
-    //                             })
-    //             .catch(e => console.log(e));
-
-    //this.source.load(this.service.getData());
-    //this.source.load(this.data);
   }
 
   settings = {
     actions:{
       add:false,
-      edit: {
-        mode: 'inline',    //'inline'|'external',
-      },
+      edit: false,
+      // edit: {
+      //   mode: 'inline',    //'inline'|'external',
+      // },
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -100,15 +81,15 @@ export class DepartmentListComponent {
                                   //console.log(result.json());
                                   this.source.load(result.json()); 
                                 })
-                .catch(e => console.log(e));
+                .catch(e => {
+                    if(e.status == 401) {
+                      this.alterService.showErrorAsync(e.json());
+                      this.router.navigate(['/auth/login'], { queryParams: { returnUrl: '/pages/departments/list' }});  
+                    }
+                    //this.alterService.showErrorAsync(e.json());
+                    console.log(e)
+                  });
 
-                var toast: Toast = {
-                  type: 'info',
-                  title: 'Here is a Toast Title',
-                  body: 'Here is a Toast Body'
-                };
-                
-                //this.toasterService.pop(toast);
   }
 
 

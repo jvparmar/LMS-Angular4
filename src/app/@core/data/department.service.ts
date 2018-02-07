@@ -7,7 +7,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
 import { IDepartmentList, Department } from '../data-model/IDepartment';
-import { CustomHttp } from '../utils/index';
+import { CustomHttp, HttpService } from '../utils/index';
 //import { Promise } from 'q';
 //import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
@@ -18,7 +18,8 @@ export class DepartmentService {
   private _departmentServiceUrl = '/Department/';  
   public options;
 
-  constructor(private _http: Http, private http: CustomHttp) { 
+  //constructor(private _http: Http, private http: CustomHttp) { 
+  constructor(private http: HttpService) { 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     this.options = new RequestOptions({ headers: headers });     
   }

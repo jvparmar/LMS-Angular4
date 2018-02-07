@@ -8,3 +8,6 @@ export * from './smart-table.service';
 export * from './state.service';
 export * from './users.service';
 export * from './notification.service';
+export * from './alert.service';
+export * from './authentication.service';
+export * from './dashboard.service';

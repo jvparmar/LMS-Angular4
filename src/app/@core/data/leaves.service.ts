@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers, RequestOptions, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { CustomHttp } from "../utils/custom-http";
 import { LeaveApplication, EmployeeLeaveList, EmployeeLeaveLog } from '../data-model/ILeaves';
+import { HttpService, CustomHttp } from "../utils/index";
 
 
 @Injectable()
@@ -10,7 +10,8 @@ export class LeaveService {
     private _leaveServiceUrl = '/Leaves/';
     public options;
     //private _http: Http,
-    constructor(private http: CustomHttp) {
+    //constructor(private http: CustomHttp) {
+    constructor(private http: HttpService) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         this.options = new RequestOptions({ headers: headers });
     }
@@ -25,6 +26,12 @@ export class LeaveService {
 
     async getEmployeeLeaveListAsync(employeeId: number) {
       let url: string = this._leaveServiceUrl + "GetEmployeeLeaves?employeeId=" + employeeId;
+      console.log(url);
+      return await this.http.get(url).toPromise();
+    }
+
+    async getPendingForApprovalLeaveListAsync(employeeId: number) {
+      let url: string = this._leaveServiceUrl + "GetPendingForApprovalLeavesList?employeeId=" + employeeId;
       console.log(url);
       return await this.http.get(url).toPromise();
     }
@@ -65,6 +72,22 @@ export class LeaveService {
       let url : string = this._leaveServiceUrl + 'WithdrawLeave';
 
       //let requestData = { employeeLeaveId: leaveRequest }
+   
+      return this.http.post(url, leaveRequest, this.options)
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    ApproveLeave(leaveRequest: LeaveApplication ) : Observable<any> {
+      let url : string = this._leaveServiceUrl + 'ApproveLeave';
+   
+      return this.http.post(url, leaveRequest, this.options)
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    UnapproveLeave(leaveRequest: LeaveApplication ) : Observable<any> {
+      let url : string = this._leaveServiceUrl + 'UnapproveLeave';
    
       return this.http.post(url, leaveRequest, this.options)
                         .map(this.extractData)

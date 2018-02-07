@@ -21,6 +21,7 @@ import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
 import { EmployeeLeavesComponent } from '../employees/employee-leaves/employee-leaves.component';
 import { EmployeesModule } from '../employees/employee.module';
+import { EmployeeLeaveSummaryCardComponent } from '../employees/employee-leave-summary/employee-leave-summary.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { EmployeesModule } from '../employees/employee.module';
     TrafficComponent,
     TrafficChartComponent,
     EmployeeLeavesComponent,
+    EmployeeLeaveSummaryCardComponent,
   ],
 })
 export class DashboardModule { }

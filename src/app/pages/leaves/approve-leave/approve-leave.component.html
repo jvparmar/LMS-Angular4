@@ -1,0 +1,89 @@
+<!-- <toaster-container [toasterconfig]="config"></toaster-container> -->
+
+<nb-card>      
+    <nb-card-header>Pending Approve Leave Details</nb-card-header>
+    <toaster-container [toasterconfig]="config1"></toaster-container>
+    <nb-card-body>
+      <form [formGroup]="form" >
+          <div *ngFor="let leaveApplication of dataResult">
+            <div class="form-group row">
+                <label  class="col-sm-3 control-label">Employee Name</label>
+
+                <div class="col-sm-9">                    
+                    <div style="padding:0.75rem">{{leaveApplication.EmployeeFullName}}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+        
+                <div class="col-sm-9">                    
+                    <div style="padding:0.75rem">{{leaveApplication.Email}}</div>                    
+                    <!-- <div>
+                        <span [innerHTML]="leaveApplication.Email"></span>
+                    </div> -->
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputRequestDate" class="col-sm-3 control-label">Request Date</label>
+        
+                <div class="col-sm-9">                    
+                    <div style="padding:0.75rem">{{applyDateFormat(leaveApplication.RequestDate)}}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputLeaveFromDate" class="col-sm-3 control-label">Leave From</label>
+        
+                <div class="col-sm-9">
+                    <div style="padding:0.75rem">{{applyDateFormat(leaveApplication.LeaveFromDate)}}</div>
+                </div>                
+            </div>
+                <div class="form-group row">
+                <label for="inputLeaveToDate" class="col-sm-3 control-label">Leave To</label>
+        
+                <div class="col-sm-9">
+                    <div style="padding:0.75rem">{{applyDateFormat(leaveApplication.LeaveToDate)}}</div>
+                </div>                
+            </div>
+            <div class="form-group row">
+                <label for="selectLeaveType" class="col-sm-3 control-label">Leave Type</label>
+                <div class="col-sm-9 input-group">
+                    <div style="padding:0.75rem">{{leaveApplication.LeaveTypeDescription}}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputNoOfDays" class="col-sm-3 control-label">Number Of Day(s)</label>
+        
+                <div class="col-sm-9">
+                    <div style="padding:0.75rem">{{leaveApplication.NoOfDays}}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputLeaveStatusDescription" class="col-sm-3 control-label">Leave Status</label>        
+                <div class="col-sm-9">
+                    <div style="padding:0.75rem">{{leaveApplication.LeaveStatusDescription}}</div>
+                </div>
+            </div>        
+            <div class="form-group row">
+                <label for="inputDescription" class="col-sm-3 control-label">Description</label>
+        
+                <div class="col-sm-9">                    
+                    <textarea [formControl]="Description" id="inputDescription" class="form-control" placeholder="Leave Description..."></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-sm-3 col-sm-9">
+            <button [disabled]="!form.valid" type="submit" (click)="onApproveLeave()" class="btn btn-success" *ngIf="isAllowToApprove">Approve</button>
+            <button type="submit" class="btn btn-primary" (click)="onUnapproveLeave()" *ngIf="isAllowToReject">Reject</button>
+            <button type="button" class="btn btn-default btn-auth" (click)="goBack()">Go Back</button>
+          </div>
+        </div>
+      </form>
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+            <br>
+            <app-my-leave-logs [inputEmployeeLeaveId]="pEmployeeLeaveId"></app-my-leave-logs>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>

@@ -12,12 +12,10 @@ const routes: Routes = [{
     path: 'dashboard',
     component: DashboardComponent,
   }, {
-    path: 'employees',
-    //component: DepartmentListComponent,
+    path: 'employees',    
     loadChildren: './employees/employee.module#EmployeesModule',  
   }, {
-    path: 'departments',
-    //component: DepartmentListComponent,
+    path: 'departments',    
     loadChildren: './department/department.module#DepartmentModule',
   }, {
     path: 'leaves',    

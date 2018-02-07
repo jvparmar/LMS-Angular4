@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   user: any;
 
-  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  userMenu = [{ title: 'Profile' }, { title: 'Log out', link: '/auth/login'}];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);
+      .subscribe((users: any) => this.user = users.jigs);
   }
 
   toggleSidebar(): boolean {

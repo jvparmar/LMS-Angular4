@@ -155,7 +155,7 @@ import { DatePipe } from '@angular/common';
             console.log('New Leave request');
             this.form.setValue({
               EmployeeLeaveId: 0,
-              RequestDate: Date.now(),        
+              RequestDate: this.applyDateFormat(Date.now()),
               LeaveFromDate: '',
               LeaveToDate: '',
               LeaveTypeDescription: '',

@@ -14,3 +14,6 @@ export enum enumLeaveStatus {
     // Unapproved = "UNAPPROVED",
     // Withdrew = "WITHDREW"
 }
+
+export const LMS_WEEKLY_DATE_FORMAT = 'EEE, dd-MMM';
+export const LMS_MONTHLY_DATE_FORMAT = 'dd';

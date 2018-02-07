@@ -33,16 +33,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Leaves',
-    icon: 'nb-paper-plane',
-    //link: '/pages/departments',
-    //home: true,
+    icon: 'nb-paper-plane',    
     children: [{
         title: 'My Leaves',
         link: '/pages/leaves/myLeaves'
-      }
-      , {
+      }, {
         title: 'Leave Application',
         link: '/pages/leaves/leaveApplication'
+      }, {
+        title: 'Pending Approval Leave',
+        link: '/pages/leaves/pendingApprovalLeaves'
       }
     ]
   },
@@ -102,7 +102,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Components',
     icon: 'nb-gear',
-    children: [
+    children: [                          
       {
         title: 'Tree',
         link: '/pages/components/tree',
